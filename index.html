@@ -28,9 +28,15 @@
 
     .top-bar {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
+      justify-content: flex-end;
+    }
+
+    #hotelLogo {
+      display: block;
+      margin: 0 auto 20px auto;
+      height: 180px;
+      max-height: 200px;
+      object-fit: contain;
     }
 
     .header-title {
@@ -79,6 +85,10 @@
       margin-bottom: 20px;
     }
 
+    #consentLabel {
+      font-size: 13px;
+    }
+
     button {
       background-color: #25D366;
       color: white;
@@ -113,22 +123,28 @@
       color: #888;
       text-align: center;
     }
+
+    @media (max-width: 600px) {
+      #hotelLogo {
+        height: 80px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container" id="main">
-    <div class="header-title" id="headerTitle"></div>
     <div class="top-bar">
-      <img id="hotelLogo" src="" alt="Hotel Logo">
       <div class="language-switcher">
         <select id="languageSelect">
-          <option value="fr">🇫🇷 Français</option>
+          <option value="ar">🇲🇦 العربية</option>
           <option value="en">🇬🇧 English</option>
           <option value="es">🇪🇸 Español</option>
-          <option value="ar">🇲🇦 العربية</option>
+          <option value="fr">🇫🇷 Français</option>
         </select>
       </div>
     </div>
+    <img id="hotelLogo" src="" alt="Hotel Logo">
+    <div class="header-title" id="headerTitle"></div>
 
     <p id="welcomeText"></p>
 
@@ -151,6 +167,19 @@
   <script>
     // Translation texts for each supported language
     const translations = {
+      ar: {
+        title: (hotelName) => `كونسيرج فندق ${hotelName} عبر واتساب`,
+        welcomeText: "أهلاً بك. تتوفر خدمة الكونسيرج عبر واتساب لمساعدتك خلال الإقامة.",
+        checkoutLabel: "هل ترغب في إدخال تاريخ المغادرة؟",
+        consentText: (hotelName) => `أوافق على تلقي رسائل خدمة عبر واتساب من ${hotelName} خلال إقامتي وحتى 7 أيام بعدها (تذكير المغادرة ورابط التقييم). أرسل STOP لإلغاء الاشتراك.`,
+        withConsentBtn: "أوافق وأتابع على واتساب",
+        withoutConsentBtn: "المتابعة بدون تحديثات",
+        footer: "بموجب سياسة أعمال واتساب، يمكنك سحب موافقتك في أي وقت.",
+        messageWithDate: (date, code) => `مرحبًا، أرغب في استخدام البواب الذكي. تاريخ المغادرة هو ${date}. رمزي هو ${code}`,
+        messageWithoutDate: (code) => `مرحبًا، أرغب في استخدام البواب الذكي. رمزي هو ${code}`,
+        messageWithDateAndOptin: (date, code) => `empty`,
+        messageWithoutDateAndOptin: (code) => `empty`
+      },
       en: {
         title: (hotelName) => `${hotelName} Concierge on WhatsApp`,
         welcomeText: "Welcome. Our concierge is available on WhatsApp to help during your stay.",
@@ -160,18 +189,9 @@
         withoutConsentBtn: "Continue without updates",
         footer: "According to WhatsApp Business Policy, you may withdraw your consent at any time.",
         messageWithDate: (date, code) => `Hello, I would like to use the AI concierge. My checkout date is ${date}. My code is ${code}`,
-        messageWithoutDate: (code) => `Hello, I would like to use the AI concierge. My code is ${code}`
-      },
-      fr: {
-        title: (hotelName) => `Conciergerie de ${hotelName} sur WhatsApp`,
-        welcomeText: "Bienvenue. Notre conciergerie est disponible sur WhatsApp pour vous aider pendant votre séjour.",
-        checkoutLabel: "Souhaitez-vous renseigner votre date de départ ?",
-        consentText: (hotelName) => `J’accepte de recevoir des messages de service WhatsApp de ${hotelName} pendant mon séjour et jusqu’à 7 jours après (rappel de départ & lien d’avis). Répondez STOP pour vous désabonner.`,
-        withConsentBtn: "J’accepte et je continue sur WhatsApp",
-        withoutConsentBtn: "Continuer sans mises à jour",
-        footer: "Conformément à la politique WhatsApp Business, vous pouvez retirer votre consentement à tout moment.",
-        messageWithDate: (date, code) => `Bonjour, je souhaite utiliser le concierge IA. Ma date de départ est le ${date}. Mon code est ${code}`,
-        messageWithoutDate: (code) => `Bonjour, je souhaite utiliser le concierge IA. Mon code est ${code}`
+        messageWithoutDate: (code) => `Hello, I would like to use the AI concierge. My code is ${code}`,
+        messageWithDateAndOptin: (date, code) => `empty`,
+        messageWithoutDateAndOptin: (code) => `empty`
       },
       es: {
         title: (hotelName) => `Conserje de ${hotelName} por WhatsApp`,
@@ -182,18 +202,22 @@
         withoutConsentBtn: "Continuar sin actualizaciones",
         footer: "Según la política de WhatsApp Business, puede retirar su consentimiento en cualquier momento.",
         messageWithDate: (date, code) => `Hola, me gustaría utilizar el conserje virtual. Mi fecha de salida es ${date}. Mi código es ${code}`,
-        messageWithoutDate: (code) => `Hola, me gustaría utilizar el conserje virtual. Mi código es ${code}`
+        messageWithoutDate: (code) => `Hola, me gustaría utilizar el conserje virtual. Mi código es ${code}`,
+        messageWithDateAndOptin: (date, code) => `empty`,
+        messageWithoutDateAndOptin: (code) => `empty`
       },
-      ar: {
-        title: (hotelName) => `كونسيرج فندق ${hotelName} عبر واتساب`,
-        welcomeText: "أهلاً بك. تتوفر خدمة الكونسيرج عبر واتساب لمساعدتك خلال الإقامة.",
-        checkoutLabel: "هل ترغب في إدخال تاريخ المغادرة؟",
-        consentText: (hotelName) => `أوافق على تلقي رسائل خدمة عبر واتساب من ${hotelName} خلال إقامتي وحتى 7 أيام بعدها (تذكير المغادرة ورابط التقييم). أرسل STOP لإلغاء الاشتراك.`,
-        withConsentBtn: "أوافق وأتابع على واتساب",
-        withoutConsentBtn: "المتابعة بدون تحديثات",
-        footer: "بموجب سياسة أعمال واتساب، يمكنك سحب موافقتك في أي وقت.",
-        messageWithDate: (date, code) => `مرحبًا، أرغب في استخدام البواب الذكي. تاريخ المغادرة هو ${date}. رمزي هو ${code}`,
-        messageWithoutDate: (code) => `مرحبًا، أرغب في استخدام البواب الذكي. رمزي هو ${code}`
+      fr: {
+        title: (hotelName) => `Conciergerie de ${hotelName} sur WhatsApp`,
+        welcomeText: "Bienvenue. Notre conciergerie est disponible sur WhatsApp pour vous aider pendant votre séjour.",
+        checkoutLabel: "Souhaitez-vous renseigner votre date de départ ?",
+        consentText: (hotelName) => `J’accepte de recevoir des messages de service WhatsApp de ${hotelName} pendant mon séjour et jusqu’à 7 jours après (rappel de départ & lien d’avis). Répondez STOP pour vous désabonner.`,
+        withConsentBtn: "J’accepte et je continue sur WhatsApp",
+        withoutConsentBtn: "Continuer sans mises à jour",
+        footer: "Conformément à la politique WhatsApp Business, vous pouvez retirer votre consentement à tout moment.",
+        messageWithDate: (date, code) => `Bonjour, je souhaite utiliser le concierge IA. Ma date de départ est le ${date}. Mon code est ${code}`,
+        messageWithoutDate: (code) => `Bonjour, je souhaite utiliser le concierge IA. Mon code est ${code}`,
+        messageWithDateAndOptin: (date, code) => `empty`,
+        messageWithoutDateAndOptin: (code) => `empty`
       }
     };
 
@@ -266,9 +290,16 @@
         body: JSON.stringify(payload)
       })
         .then(res => {
-          const message = checkoutDate
-            ? t.messageWithDate(checkoutDate, payload.code)
-            : t.messageWithoutDate(payload.code);
+          let message;
+          if (isConsentGiven) {
+            message = checkoutDate
+              ? t.messageWithDate(checkoutDate, payload.code)
+              : t.messageWithoutDate(payload.code);
+          } else {
+            message = checkoutDate
+              ? t.messageWithDateAndOptin(checkoutDate, payload.code)
+              : t.messageWithoutDateAndOptin(payload.code);
+          }
           const encodedMessage = encodeURIComponent(message);
           const whatsappLink = `https://wa.me/212653421433?text=${encodedMessage}`;
           setTimeout(() => {
