@@ -4,26 +4,6 @@
     "name": "Idou Anfa",
     "logo": "Logos/logo-idouanfa.png"
   },
-  "atlas": {
-    "id": "mysticmountainlodge-0004",
-    "name": "Hôtel Atlas",
-    "logo": "Logos/logo-idouanfa.png"
-  },
-  "azur": {
-    "id": "underwaterutopia-0005",
-    "name": "Hôtel Azur",
-    "logo": "https://ih1.redbubble.net/image.235947737.5938/st,extra_large,507x507-pad,600x600,f8f8f8.u4.jpg"
-  },
-  "sahara": {
-    "id": "dfrg-0018",
-    "name": "Hôtel Sahara",
-    "logo": "https://cdn.worldvectorlogo.com/logos/camel-4.svg"
-  },
-  "riviera": {
-    "id": "galacticgetaway-0002",
-    "name": "Hôtel Riviera",
-    "logo": "assets/logos/riviera.png"
-  },
   "Y3oBt5": {
     "id": "mdeghra-0025",
     "name": "Hotêl Mdaghra",
